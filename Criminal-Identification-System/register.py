@@ -1,12 +1,14 @@
 # register.py
 import cv2
 from facerec import detect_faces
+from PIL import Image
+from imageUpload import *
 
-def registerCriminal(img, path, img_num):
+def registerCriminal(img, path, img_num, name):
     size = 2
     (im_width, im_height) = (112, 92)
     file_num = 2*img_num - 1
-
+    print(img)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = detect_faces(gray)
 
@@ -28,6 +30,14 @@ def registerCriminal(img, path, img_num):
         print("Saving training sample " + str(img_num)+".2")
         face = cv2.flip(face, 1, 0)
         cv2.imwrite('%s/%s.png' % (path, file_num), face)
+        
+        data = Image.fromarray(face)
+        data.save('temp_pic.png')
+        bin = 0b0
+        with open('temp_pic.png', "rb") as File:
+            bin = File.read()
+        print(bin)
+        insertImages(bin, name)
 
     else:
         # No face present

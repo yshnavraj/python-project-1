@@ -198,7 +198,7 @@ def register(entries, required, menu_var):
     no_face = []
     for i, img in enumerate(img_list):
         # Storing Images in directory
-        id = registerCriminal(img, path, i + 1)
+        id = registerCriminal(img, path, i + 1, entry_data["Name"])
         if None != id:
             no_face.append(id)
 

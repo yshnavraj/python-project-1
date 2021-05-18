@@ -8,12 +8,27 @@ def createTable(name):
    query = "call createImageTable('%s');" %name
    cursor.execute(query)
 
-def insertImages(filePath, criminalName):
-   imagesLi = []
-   for image in os.listdir(filePath):
-      with open(image, "rb") as File:
-         bin = File.read()
-         imagesLi.append(bin)
+def insertImages(imageT, criminalName):
+   db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="criminaldb")
+   cursor = db.cursor()
+   print("database connected")
+   query = "INSERT INTO %s (id, image) values(0, %s);"
+   try:
+      if(cursor.execute(query, (criminalName, imageT))):
+         db.commit()
+         print("Image Stored")
+      else:
+         print("Image Not Stored")
+   except:
+      db.rollback()
+      print("ERROR!!")
+   # imagesLi = []
+   # for image in os.listdir(imageT):
+   #    with open(image, "rb") as File:
+   #       bin = File.read()
+   #       imagesLi.append(bin)
+   
+
 
 #    db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="criminaldb")
 #    cursor = db.cursor()
