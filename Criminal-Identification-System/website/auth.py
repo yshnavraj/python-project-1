@@ -35,42 +35,6 @@ def login():
         print("connection closed")
     return render_template("login.html", user=current_user)
 
-    #     if user:
-    #         if check_password_hash(user.password, password):
-    #             flash('Logged out successfully!', category='success')
-    #             login_user(user, remember=True)
-    #             # return redirect(url_for('views.home'))
-    #             os.system('Python home.py')
-    #             return render_template("dashboard2.html", user=current_user)
-    #         else:
-    #             flash('Incorrect password, try again.', category='error')
-    #     else:
-    #         flash('Email does not exist.', category='error')
-
-    # return render_template("login.html", user=current_user)
-    # os.system('Python Criminal-Identification-System/j.py')
-    # return
-
-    # if request.method == 'POST':
-    #     email = request.form.get('email')
-    #     password = request.form.get('password')
-
-    #     user = User.query.filter_by(email=email).first()
-    #     if user:
-    #         if check_password_hash(user.password, password):
-    #             flash('Logged out successfully!', category='success')
-    #             login_user(user, remember=True)
-    #             # return redirect(url_for('views.home'))
-    #             os.system('Python home.py')
-    #             return render_template("dashboard2.html", user=current_user)
-    #         else:
-    #             flash('Incorrect password, try again.', category='error')
-    #     else:
-    #         flash('Email does not exist.', category='error')
-
-#     return render_template("login.html", user=current_user)
-    # os.system('Python Criminal-Identification-System/j.py')
-    # return
 
 @auth.route('/logout')
 @login_required
@@ -91,8 +55,6 @@ def sign_up():
         print("database connected")
         query = "SELECT * FROM admintable where admin_username = '%s' and admin_password = '%s';" % (email, password)
 
-        # user = User.query.filter_by(email=email).first()
-        # if user:
         try:
             if(cursor.execute(query)):
                 db.commit()
@@ -103,18 +65,6 @@ def sign_up():
         except:
             db.rollback()
     return render_template("sign_up.html", user=current_user)
-        # if (email=="Admin" and password=="Admin123"):
-        #     flash('Logged out successfully!', category='success')
-        #     # login_user(user, remember=True)
-        #     # return redirect(url_for('views.home'))
-        #     return render_template("dashboard.html", user=current_user)
-        #     #os.system('Python home.py')
-        # else:
-        #     flash('Incorrect password, try again.', category='error')
-        # # else:
-        # #     flash('Email does not exist.', category='error')
-
-   # return render_template("login.html", user=current_user)
     
 
 @auth.route('/addpolice', methods=['GET', 'POST'])
@@ -131,7 +81,6 @@ def addpolice():
         db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="criminaldb")
         cursor = db.cursor()
         print("database connected")
-        # query = "INSERT INTO policetable (police_id, name, batch, policeId, password) VALUES(0, %s, %s, %s, %s)"
         query = "INSERT INTO policetable VALUES(0, '%s', '%s', '%s', '%s');" % (name, batch, policeId, password)
 
         # record = (0, name, batch, policeId, password)
@@ -158,7 +107,6 @@ def removepolice():
         db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="criminaldb")
         cursor = db.cursor()
         print("database connected")
-        # query = "INSERT INTO policetable (police_id, name, batch, policeId, password) VALUES(0, %s, %s, %s, %s)"
         query = "DELETE FROM policetable where policeId like '%s';" % policeId 
 
         try:
