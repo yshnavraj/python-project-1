@@ -14,6 +14,7 @@ import ntpath
 import time
 import cv2
 import os
+from imageUpload import *
 active_page = 0
 thread_event = None
 left_frame = None
@@ -216,7 +217,8 @@ def register(entries, required, menu_var):
         if rowId > 0:
             messagebox.showinfo("Success", "Criminal Registered Successfully.")
             shutil.move(path, os.path.join('face_samples', entry_data["Name"]))
-
+            # creating a criminalTable
+            createTable(entry_data["Name"])
             # save profile pic
             profile_img_num = int(menu_var.get().split(' ')[1]) - 1
             if not os.path.isdir("profile_pics"):
