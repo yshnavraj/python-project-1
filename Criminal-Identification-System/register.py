@@ -3,12 +3,13 @@ import cv2
 from facerec import detect_faces
 from PIL import Image
 from imageUpload import *
-
+import matplotlib.pyplot as plt
+import numpy as np
 def registerCriminal(img, path, img_num, name):
     size = 2
     (im_width, im_height) = (112, 92)
     file_num = 2*img_num - 1
-    print(img)
+    # print(img)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = detect_faces(gray)
 
@@ -32,12 +33,14 @@ def registerCriminal(img, path, img_num, name):
         cv2.imwrite('%s/%s.png' % (path, file_num), face)
         
         data = Image.fromarray(face)
+        grayscale_array = np.asarray(face)
+        plt.imshow(grayscale_array, cmap="gray")
         data.save('temp_pic.png')
         bin = 0b0
         with open('temp_pic.png', "rb") as File:
             bin = File.read()
-        print(bin)
-        insertImages(bin, name)
+        # print(data)
+        insertImages(name)
 
     else:
         # No face present
