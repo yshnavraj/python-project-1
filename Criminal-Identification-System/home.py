@@ -213,12 +213,12 @@ def register(entries, required, menu_var):
     else:
         # Storing data in database
         rowId = insertData(entry_data)
-
-        if rowId > 0:
+        print(rowId)
+        if rowId >= 0:
             messagebox.showinfo("Success", "Criminal Registered Successfully.")
             shutil.move(path, os.path.join('face_samples', entry_data["Name"]))
             # creating a criminalTable
-            createTable(entry_data["Name"])
+            # createTable(entry_data["Name"])
             # save profile pic
             profile_img_num = int(menu_var.get().split(' ')[1]) - 1
             if not os.path.isdir("profile_pics"):
@@ -328,7 +328,7 @@ def showCriminalProfile(name):
 
     (id, crim_data) = retrieveData(name)
 
-    path = os.path.join("profile_pics", "criminal %d.png"%id)
+    path = os.path.join("profile_pics", "criminal %s.png"%id)
     profile_img = cv2.imread(path)
     profile_img = cv2.resize(profile_img, (500, 500))
     img = cv2.cvtColor(profile_img, cv2.COLOR_BGR2RGB)

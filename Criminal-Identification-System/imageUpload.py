@@ -9,14 +9,20 @@ def createTable(name):
    query = "call createImageTable('%s');" %name
    cursor.execute(query)
 
+def convertToBinary(filename):
+   with open(filename, 'rb') as file:
+      blobData = file.read()
+   return blobData
+
 def insertImages(criminalName):
    db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="criminaldb")
-   imageTT = Image.open('temp_pic.png')
+   # imageTT = Image.open('temp_pic.png').convert('L')
+   photo = convertToBinary("temp_pic.png")
    cursor = db.cursor()
    print("database connected")
    query = "INSERT INTO %s (id, image)" %criminalName + " values(0, %s);"
    # try:
-   if(cursor.execute(query, (imageTT))):
+   if(cursor.execute(query, (photo))):
       db.commit()
       print("Image Stored")
    else:

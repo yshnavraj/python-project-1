@@ -17,6 +17,7 @@ def train_model():
         # Loop through each folder named after the subject in the photos
         for subdir in dirs:
             names[id] = subdir
+            print(names[id])
             subjectpath = os.path.join(fn_dir, subdir)
             # Loop through each photo in the folder
             for filename in os.listdir(subjectpath):

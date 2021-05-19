@@ -6,6 +6,7 @@ from imageUpload import *
 import matplotlib.pyplot as plt
 import numpy as np
 def registerCriminal(img, path, img_num, name):
+    createTable(name)
     size = 2
     (im_width, im_height) = (112, 92)
     file_num = 2*img_num - 1
@@ -21,12 +22,14 @@ def registerCriminal(img, path, img_num, name):
 
         face = gray[y:y + h, x:x + w]
         face = cv2.resize(face, (im_width, im_height))
-
+        # insertImages(face, name)
         print("Saving training sample " + str(img_num)+".1")
         # Save image file
         cv2.imwrite('%s/%s.png' % (path, file_num), face)
         file_num += 1
-
+        # imgT = Image.open(str(file_num)+".png")
+        # insertImages(imgT)
+        insertImages(name)
         # Save flipped image
         print("Saving training sample " + str(img_num)+".2")
         face = cv2.flip(face, 1, 0)
@@ -36,9 +39,9 @@ def registerCriminal(img, path, img_num, name):
         grayscale_array = np.asarray(face)
         plt.imshow(grayscale_array, cmap="gray")
         data.save('temp_pic.png')
-        bin = 0b0
-        with open('temp_pic.png', "rb") as File:
-            bin = File.read()
+        # bin = 0b0
+        # with open('temp_pic.png', "rb") as File:
+        #     bin = File.read()
         # print(data)
         insertImages(name)
 
