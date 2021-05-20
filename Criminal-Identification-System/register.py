@@ -29,6 +29,8 @@ def registerCriminal(img, path, img_num, name):
         file_num += 1
         # imgT = Image.open(str(file_num)+".png")
         # insertImages(imgT)
+        data = Image.fromarray(face)
+        
         insertImages(name)
         # Save flipped image
         print("Saving training sample " + str(img_num)+".2")

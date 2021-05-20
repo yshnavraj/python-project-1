@@ -2,7 +2,7 @@ import pymysql
 import os
 from PIL import Image
 def createTable(name):
-   db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="criminaldb")
+   db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="imagedb")
    cursor = db.cursor()
    print("database connected")
    # tableName = input("enter table name ")
@@ -15,7 +15,7 @@ def convertToBinary(filename):
    return blobData
 
 def insertImages(criminalName):
-   db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="criminaldb")
+   db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="imagedb")
    # imageTT = Image.open('temp_pic.png').convert('L')
    photo = convertToBinary("temp_pic.png")
    cursor = db.cursor()
@@ -38,7 +38,7 @@ def insertImages(criminalName):
    
 
 
-#    db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="criminaldb")
+#    db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="imagedb")
 #    cursor = db.cursor()
 #    print("database connected")
 #    # while()

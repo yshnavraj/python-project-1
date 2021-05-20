@@ -123,7 +123,7 @@ def removepolice():
             flash("User couldn't be removed", category='error')
         db.close()
         print("connection closed")
-        return render_template("dashboard.html", user=current_user)
+        return render_template("dashboard3.html", user=current_user)
 
 @auth.route('/policeLogin', methods=['GET', 'POST'])
 def policeLogin():
@@ -145,3 +145,16 @@ def policeLogin():
         db.close()
         print("connection closed")
     return render_template("dashboard2.html", user=current_user)
+
+@auth.route('/show', methods=['GET', 'POST'])  
+def show(): 
+    db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="criminaldb")
+    cursor = db.cursor()
+        
+    cursor.execute("SELECT * FROM policetable")
+    data = cursor.fetchall()
+    return render_template('dashboard3.html', data=data, user=current_user)
+
+@auth.route('/dash', methods=['GET', 'POST'])  
+def dash(): 
+    return render_template("dashboard.html", user=current_user)

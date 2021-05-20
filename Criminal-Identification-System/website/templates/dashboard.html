@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Dashboard</title>
+  <title>Admin | Dashboard</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -38,6 +38,7 @@
         <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
         {% else %}
         <a class="nav-item nav-link disabled" id="Signup" href="#">Admin</a>
+        <a class="nav-item nav-link" id="Police" href="/show">Show Users</a>
         <a class="nav-item nav-link" id="Police" href="/logout">Logout</a>
         {% endif %}
       </div>
@@ -80,7 +81,7 @@
 
       </div>
       <div class="col-sm-1"></div>
-      <div class="col-sm-5">
+      <!-- <div class="col-sm-5">
         <h2 style="color: White">Remove Police</h2>
 
         <div class="fakeimg">
@@ -97,17 +98,17 @@
           </form>
         </div>
 
-      </div>
+      </div> -->
     </div>
   </div>
-  <script>
+  <!-- <script>
     function myFun() {
       alert(" Going to remove the User.");
     }
     var name = document.getElementById('fullName').value
     var batch = document.getElementById('batchIDNumber').value
     console.log(name)
-  </script>
+  </script> -->
 </body>
 
 </html>

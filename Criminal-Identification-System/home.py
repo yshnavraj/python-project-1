@@ -327,7 +327,7 @@ def showCriminalProfile(name):
     content.grid_rowconfigure(0, weight=1)
 
     (id, crim_data) = retrieveData(name)
-
+    print("check oh ", id, crim_data)
     path = os.path.join("profile_pics", "criminal %s.png"%id)
     profile_img = cv2.imread(path)
     profile_img = cv2.resize(profile_img, (500, 500))
@@ -369,6 +369,7 @@ def startRecognition():
     else:
         (model, names) = train_model()
         print('Training Successful. Detecting Faces')
+        print(model)
         (frame, recognized) = recognize_face(model, frame, gray_frame, face_coords, names)
 
         img_size = left_frame.winfo_height() - 40

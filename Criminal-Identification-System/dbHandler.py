@@ -34,13 +34,14 @@ def retrieveData(name):
     cursor = db.cursor()
     print("database connected")
 
-    query = "SELECT * FROM criminaldata WHERE name='{%s}'"%name
+    query = "SELECT * FROM criminaldata WHERE name='%s'"%name
 
     try:
         cursor.execute(query)
         result = cursor.fetchone()
 
         id=result[0]
+        print("check 1", id)
         crim_data = {
             "Name" : result[1],
             "Father's Name" : result[2],
@@ -54,7 +55,7 @@ def retrieveData(name):
             "Religion" : result[10],
             "Crimes Done" : result[11]
         }
-
+        print("check 1", id)
         print("data retrieved")
     except:
         print("Error: Unable to fetch data")
