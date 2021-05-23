@@ -5,7 +5,7 @@ from PIL import Image
 from imageUpload import *
 import matplotlib.pyplot as plt
 import numpy as np
-def registerCriminal(img, path, img_num, name):
+def registerCriminal(img, img_num, name):
     createTable(name)
     size = 2
     (im_width, im_height) = (112, 92)
@@ -25,17 +25,17 @@ def registerCriminal(img, path, img_num, name):
         # insertImages(face, name)
         print("Saving training sample " + str(img_num)+".1")
         # Save image file
-        cv2.imwrite('%s/%s.png' % (path, file_num), face)
+        # cv2.imwrite('%s/%s.png' % (path, file_num), face)
         file_num += 1
         # imgT = Image.open(str(file_num)+".png")
         # insertImages(imgT)
         data = Image.fromarray(face)
-        
+        data.save('temp_pic.png')
         insertImages(name)
         # Save flipped image
         print("Saving training sample " + str(img_num)+".2")
         face = cv2.flip(face, 1, 0)
-        cv2.imwrite('%s/%s.png' % (path, file_num), face)
+        # cv2.imwrite('%s/%s.png' % (path, file_num), face)
         
         data = Image.fromarray(face)
         grayscale_array = np.asarray(face)

@@ -191,14 +191,14 @@ def register(entries, required, menu_var):
             entry_data[entry[0]] = val.lower()
 
     # Setting Directory
-    path = os.path.join('face_samples', "temp_criminal")
-    if not os.path.isdir(path):
-        os.mkdir(path)
+    # path = os.path.join('face_samples', "temp_criminal")
+    # if not os.path.isdir(path):
+    #     os.mkdir(path)
 
     no_face = []
     for i, img in enumerate(img_list):
         # Storing Images in directory
-        id = registerCriminal(img, path, i + 1, entry_data["Name"])
+        id = registerCriminal(img, i + 1, entry_data["Name"])
         if None != id:
             no_face.append(id)
 
@@ -209,14 +209,14 @@ def register(entries, required, menu_var):
             no_face_st += "Image " + str(i) + ", "
         messagebox.showerror("Registration Error", "Registration failed!\n\nFollowing images doesn't contain"
                                                    " face or Face is too small:\n\n%s" % no_face_st)
-        shutil.rmtree(path, ignore_errors=True)
+        # shutil.rmtree(path, ignore_errors=True)
     else:
         # Storing data in database
         rowId = insertData(entry_data)
         print(rowId)
         if rowId >= 0:
             messagebox.showinfo("Success", "Criminal Registered Successfully.")
-            shutil.move(path, os.path.join('face_samples', entry_data["Name"]))
+            # shutil.move(path, os.path.join('face_samples', entry_data["Name"]))
             # creating a criminalTable
             # createTable(entry_data["Name"])
             # save profile pic
@@ -227,7 +227,7 @@ def register(entries, required, menu_var):
 
             goBack()
         else:
-            shutil.rmtree(path, ignore_errors=True)
+            # shutil.rmtree(path, ignore_errors=True)
             messagebox.showerror("Database Error", "Some error occured while storing data.")
 
 
@@ -477,81 +477,81 @@ def videoLoop(model, names):
         print("[INFO]Caught Tcl Error")
 
 
-def videoLoop2(path, model, names):
-    p = path
-    q = ntpath.basename(p)
-    filenam, file_extension = os.path.splitext(q)
-    # print(filename)
-    global thread_event, left_frame, webcam, img_label
-    start = time.time()
-    webcam = cv2.VideoCapture(p)
-    old_recognized = []
-    crims_found_labels = []
-    times = []
-    img_label = None
-    field = ['S.No.', 'Name', 'Time']
-    g = filenam + '.csv'
-    filename = g
-    num = 0
-    try:
-        # with open('people_Details.csv', 'w', ) as csvfile:
-        with open(filename, 'w') as csvfile:
-            # peoplewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-            csvwriter = csv.writer(csvfile)
-            csvwriter.writerow(field)
-            while not thread_event.is_set():
+# def videoLoop2(path, model, names):
+#     p = path
+#     q = ntpath.basename(p)
+#     filenam, file_extension = os.path.splitext(q)
+#     # print(filename)
+#     global thread_event, left_frame, webcam, img_label
+#     start = time.time()
+#     webcam = cv2.VideoCapture(p)
+#     old_recognized = []
+#     crims_found_labels = []
+#     times = []
+#     img_label = None
+#     field = ['S.No.', 'Name', 'Time']
+#     g = filenam + '.csv'
+#     filename = g
+#     num = 0
+#     try:
+#         # with open('people_Details.csv', 'w', ) as csvfile:
+#         with open(filename, 'w') as csvfile:
+#             # peoplewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+#             csvwriter = csv.writer(csvfile)
+#             csvwriter.writerow(field)
+#             while not thread_event.is_set():
 
-                # Loop until the camera is working
+#                 # Loop until the camera is working
 
-                while (True):
-                    # Put the image from the webcam into 'frame'
-                    (return_val, frame) = webcam.read()
-                    if (return_val == True):
-                        break
-                    # else:
-                    #     print("Failed to open webcam. Trying again...")
+#                 while (True):
+#                     # Put the image from the webcam into 'frame'
+#                     (return_val, frame) = webcam.read()
+#                     if (return_val == True):
+#                         break
+#                     # else:
+#                     #     print("Failed to open webcam. Trying again...")
 
-                # Flip the image (optional)
-                frame = cv2.flip(frame, 1, 0)
-                # Convert frame to grayscale
-                gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+#                 # Flip the image (optional)
+#                 frame = cv2.flip(frame, 1, 0)
+#                 # Convert frame to grayscale
+#                 gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-                # Detect Faces
-                face_coords = detect_faces(gray_frame)
-                (frame, recognized) = recognize_face(model, frame, gray_frame, face_coords, names)
+#                 # Detect Faces
+#                 face_coords = detect_faces(gray_frame)
+#                 (frame, recognized) = recognize_face(model, frame, gray_frame, face_coords, names)
 
-                # Recognize Faces
-                recog_names = [item[0] for item in recognized]
-                if (recog_names != old_recognized):
-                    for wid in right_frame.winfo_children():
-                        wid.destroy()
-                    del (crims_found_labels[:])
+#                 # Recognize Faces
+#                 recog_names = [item[0] for item in recognized]
+#                 if (recog_names != old_recognized):
+#                     for wid in right_frame.winfo_children():
+#                         wid.destroy()
+#                     del (crims_found_labels[:])
 
-                    for i, crim in enumerate(recognized):
-                        num += 1
-                        x = time.time() - start
-                        crims_found_labels.append(tk.Label(right_frame, text=crim[0], bg="orange",
-                                                           font="Times 15 bold", pady=20))
-                        crims_found_labels[i].pack(fill="x", padx=20, pady=10)
-                        crims_found_labels[i].bind("<Button-1>", lambda e, name=crim[0]: showCriminalProfile(name))
-                        y = crim[0]
-                        print(x, y)
-                        arr = [num, y, x]
-                        # peoplewriter.writerow(arr)
-                        csvwriter.writerow(arr)
+#                     for i, crim in enumerate(recognized):
+#                         num += 1
+#                         x = time.time() - start
+#                         crims_found_labels.append(tk.Label(right_frame, text=crim[0], bg="orange",
+#                                                            font="Times 15 bold", pady=20))
+#                         crims_found_labels[i].pack(fill="x", padx=20, pady=10)
+#                         crims_found_labels[i].bind("<Button-1>", lambda e, name=crim[0]: showCriminalProfile(name))
+#                         y = crim[0]
+#                         print(x, y)
+#                         arr = [num, y, x]
+#                         # peoplewriter.writerow(arr)
+#                         csvwriter.writerow(arr)
 
-                        # print('hello')
-                    old_recognized = recog_names
+#                         # print('hello')
+#                     old_recognized = recog_names
 
-                # Display Video stream
-                img_size = min(left_frame.winfo_width(), left_frame.winfo_height()) - 20
+#                 # Display Video stream
+#                 img_size = min(left_frame.winfo_width(), left_frame.winfo_height()) - 20
 
-                showImage(frame, img_size)
+#                 showImage(frame, img_size)
 
-    except RuntimeError:
-        print("[INFO]Caught Runtime Error")
-    except tk.TclError:
-        print("[INFO]Caught Tcl Error")
+#     except RuntimeError:
+#         print("[INFO]Caught Runtime Error")
+#     except tk.TclError:
+#         print("[INFO]Caught Tcl Error")
 
 
 ## video surveillance Page ##
