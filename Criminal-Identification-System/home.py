@@ -15,7 +15,9 @@ import time
 import cv2
 import os
 from imageUpload import *
+# from imageDownload import *
 active_page = 0
+# id1 = 0
 thread_event = None
 left_frame = None
 right_frame = None
@@ -224,6 +226,9 @@ def register(entries, required, menu_var):
             if not os.path.isdir("profile_pics"):
                 os.mkdir("profile_pics")
             cv2.imwrite("profile_pics/criminal %d.png" % rowId, img_list[profile_img_num])
+            # uploadProfileImage(id, img_list[profile_img_num])
+            # print(id)
+            # getProfileImage(id)
 
             goBack()
         else:
@@ -314,6 +319,7 @@ def getPage1():
 
 
 def showCriminalProfile(name):
+    # global id1
     top = tk.Toplevel(bg="#7392B7")
     top.title("Criminal Profile")
     top.geometry("1500x900+%d+%d" % (root.winfo_x() + 10, root.winfo_y() + 10))
@@ -327,6 +333,9 @@ def showCriminalProfile(name):
     content.grid_rowconfigure(0, weight=1)
 
     (id, crim_data) = retrieveData(name)
+    # print("id: ",id)
+    # id1 = id
+    # print("id1: ",id1)
     print("check oh ", id, crim_data)
     path = os.path.join("profile_pics", "criminal %s.png"%id)
     profile_img = cv2.imread(path)
@@ -350,7 +359,8 @@ def showCriminalProfile(name):
 
 def startRecognition():
     global img_read, img_label
-
+    # (id1, crim_data) = retrieveData(name)
+    # getProfileImage(id1)
     if (img_label == None):
         messagebox.showerror("Error", "No image selected. ")
         return

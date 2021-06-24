@@ -2,7 +2,7 @@ import pymysql
 import os
 from PIL import Image
 def createTable(name):
-   db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="imagedb")
+   db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="image_db")
    cursor = db.cursor()
    print("database connected")
    # tableName = input("enter table name ")
@@ -13,9 +13,9 @@ def convertToBinary(filename):
    with open(filename, 'rb') as file:
       blobData = file.read()
    return blobData
-
+# imagedb
 def insertImages(criminalName):
-   db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="imagedb")
+   db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="image_db")
    # imageTT = Image.open('temp_pic.png').convert('L')
    photo = convertToBinary("temp_pic.png")
    cursor = db.cursor()
@@ -27,6 +27,31 @@ def insertImages(criminalName):
       print("Image Stored")
    else:
       print("Image Not Stored")
+      db.rollback()
+   
+
+# def uploadProfileImage(ID, imagePic):
+#    db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="image_db")
+#    cursor = db.cursor()
+#    print("database connected")
+#    data = Image.fromarray(imagePic)
+#    data.save('temp_profile.png')
+#    photo = convertToBinary("temp_profile.png")
+#    query = "INSERT INTO profile_pic (id, pic) values(%s, %s);"
+#    if(cursor.execute(query, (ID, photo))):
+#       db.commit()
+#       print("Profile Image Stored")
+#    else:
+#       print("Image Not Stored")
+#       db.rollback()
+   
+   return
+
+
+
+
+
+
    # except:
    #    db.rollback()
    #    print("ERROR!!")
@@ -38,7 +63,7 @@ def insertImages(criminalName):
    
 
 
-#    db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="imagedb")
+#    db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="image_db")
 #    cursor = db.cursor()
 #    print("database connected")
 #    # while()

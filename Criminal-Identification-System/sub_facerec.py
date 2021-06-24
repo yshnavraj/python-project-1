@@ -2,7 +2,7 @@ import pymysql
 import os
 
 def getImages(criminalName):
-   db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="imagedb")
+   db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="image_db")
    cursor = db.cursor()
    print("database connected")
 
@@ -29,7 +29,7 @@ def getImages(criminalName):
       print("Exception")
    
 def getTableList():
-   db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="imagedb")
+   db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="image_db")
    cursor = db.cursor()
    print("database connected")
 
@@ -44,7 +44,7 @@ def getTableList():
    
 
 def getLength():
-   db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="imagedb")
+   db = pymysql.connect(host="34.93.201.239", user="root", password="root", database="image_db")
    cursor = db.cursor()
    print("database connected")
 
